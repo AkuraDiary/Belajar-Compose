@@ -57,6 +57,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun LemonadeApp(modifier: Modifier = Modifier) {
+    
     var currentStep by remember { mutableStateOf(1) }
     val message = when (currentStep) {
         1 -> stringResource(id = R.string.tap_lemon_tree)
