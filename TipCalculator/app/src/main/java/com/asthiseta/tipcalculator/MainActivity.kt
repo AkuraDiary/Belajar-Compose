@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.asthiseta.tipcalculator.ui.theme.TipCalculatorTheme
 import java.text.NumberFormat
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 
 class MainActivity : ComponentActivity() {
@@ -79,6 +80,10 @@ fun TipLayout() {
             onValueChange = {text ->
                 amountInput = text
             },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            ),
             modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth()
         )
 
@@ -88,6 +93,10 @@ fun TipLayout() {
             onValueChange = {text ->
                 tipInput = text
             },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done
+            ),
             modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth()
         )
         Text(
@@ -105,6 +114,7 @@ fun EditNumberField(
     @StringRes label : Int,
     value :String,
     onValueChange : (String) -> Unit,
+    keyboardOptions : KeyboardOptions,
     modifier: Modifier = Modifier
 ) {
 
@@ -120,7 +130,7 @@ fun EditNumberField(
             stringResource(label)
         },
         singleLine = true,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        keyboardOptions = keyboardOptions//KeyboardOptions(keyboardType = KeyboardType.Number),
     )
 }
 
