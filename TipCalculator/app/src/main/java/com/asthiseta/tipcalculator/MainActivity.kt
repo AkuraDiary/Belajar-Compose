@@ -5,6 +5,7 @@ package com.asthiseta.tipcalculator
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -60,7 +61,11 @@ fun TipLayout() {
     ) {
         var amountInput by remember { mutableStateOf("") }
         val amount = amountInput.toDoubleOrNull() ?: 0.0
-        val tip = calculateTip(amount)
+
+        var tipInput by remember { mutableStateOf("") }
+        val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
+
+        val tip = calculateTip(amount, tipPercent)
 
         Text(
             text = stringResource(R.string.calculate_tip),
@@ -69,9 +74,19 @@ fun TipLayout() {
                 .align(alignment = Alignment.Start)
         )
         EditNumberField(
+            label = R.string.bill_amount,
             value = amountInput,
             onValueChange = {text ->
                 amountInput = text
+            },
+            modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth()
+        )
+
+        EditNumberField(
+            label = R.string.how_was_the_service,
+            value = tipInput,
+            onValueChange = {text ->
+                tipInput = text
             },
             modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth()
         )
@@ -87,6 +102,7 @@ fun TipLayout() {
 @ExperimentalMaterial3Api
 @Composable
 fun EditNumberField(
+    @StringRes label : Int,
     value :String,
     onValueChange : (String) -> Unit,
     modifier: Modifier = Modifier
@@ -101,7 +117,7 @@ fun EditNumberField(
 //        },
         modifier = modifier,
         label = {
-            stringResource(R.string.bill_amount)
+            stringResource(label)
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
