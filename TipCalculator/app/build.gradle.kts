@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.asthiseta.tipcalculator"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.asthiseta.tipcalculator"
