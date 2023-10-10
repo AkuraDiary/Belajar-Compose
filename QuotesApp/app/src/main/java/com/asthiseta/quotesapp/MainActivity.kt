@@ -71,7 +71,7 @@ fun AffirmationCardPreview(){
         Affirmation(
         stringResourceId = R.string.affirmation1,
         imageResourceId = R.drawable.image1
-    )
+        )
     )
 }
 
