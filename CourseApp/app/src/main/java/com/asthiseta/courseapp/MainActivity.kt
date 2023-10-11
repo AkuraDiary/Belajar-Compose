@@ -5,6 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asthiseta.courseapp.data.model.Topic
+import com.asthiseta.courseapp.data.source.DataSource
 import com.asthiseta.courseapp.ui.theme.CourseAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -27,7 +31,10 @@ class MainActivity : ComponentActivity() {
             CourseAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    MyCourseAppMainlayout("Android")
+                    MyCourseAppMainlayout(
+                        modifier = Modifier
+                            .padding(16.dp)
+                    )
                 }
             }
         }
@@ -35,11 +42,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyCourseAppMainlayout(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
+fun MyCourseAppMainlayout( modifier: Modifier = Modifier) {
+    TopicGrid(modifier = modifier)
+}
+
+@Composable
+fun TopicGrid(modifier: Modifier = Modifier) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
-    )
+    ){
+        items(DataSource.topics){itemTopic ->
+            CardCourseLayout(topic = itemTopic)
+        }
+    }
 }
 
 @Composable
@@ -109,6 +127,6 @@ fun CardCourseLayoutPreview() {
 @Composable
 fun MyCourseAppLayoutPreview() {
     CourseAppTheme {
-        MyCourseAppMainlayout("Android")
+        MyCourseAppMainlayout()
     }
 }
